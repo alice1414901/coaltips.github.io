@@ -2,10 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>test</title>
+  <title>Scrollama Test</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    .graphic {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      background: lightgray;
+    }
+    .step {
+      margin: 0 auto;
+      padding: 200px 0;
+      border: 1px solid #333;
+      width: 60%;
+    }
+  </style>
+  <script src="https://unpkg.com/scrollama"></script>
+
 </head>
 <body>
-  <h1>some text</h1>
-  <p>paragraph.</p>
+
+  <div class="graphic">
+    <h1 id="graphic-text">Scroll to Change Me</h1>
+  </div>
+
+  <div class="scrolly">
+    <div class="step" data-step="1">Step 1</div>
+    <div class="step" data-step="2">Step 2</div>
+    <div class="step" data-step="3">Step 3</div>
+  </div>
+
+  <script src="https://unpkg.com/scrollama"></script>
+  <script>
+    const scroller = scrollama();
+
+    scroller
+      .setup({
+        step: ".step",
+        offset: 0.5, // trigger halfway down the screen
+      })
+      .onStepEnter(response => {
+        // response = { element, index, direction }
+        document.getElementById("graphic-text").innerText =
+          `You are on Step ${response.element.dataset.step}`;
+      });
+  </script>
+
 </body>
 </html>
